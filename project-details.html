@@ -53,7 +53,7 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
 
           <li class="drop-down"><a href="#">About</a>
             <ul>
@@ -95,17 +95,11 @@
     <!-- ======= Portfolio Details Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
       <div class="container">
+        <div id="port-items" class="row portfolio-container mb-5" data-aos="fade-up">
 
-        <div class="row gy-4">
+        </div>
 
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div id="slide-images" class="swiper-wrapper align-items-center">
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
+        <div class="row gy-4 border-top">
 
           <div class="col-lg-4">
             <div class="portfolio-info">
@@ -114,8 +108,11 @@
 
               </ul>
             </div>
-            <div class="portfolio-description">
-              <h2></h2>
+          </div>
+
+          <div class="col-lg-8">
+            <div>
+              <h2>About</h2>
               <p>
                 Sample info on Project
               </p>
@@ -226,23 +223,23 @@
     function setContent(project) {
       switch (project) {
         case "nagarjuna":
-          setProInfo(["img/residential/Nagarjuna sagar View-03.jpg"], 
+          setProInfo(["img/projects/residential/Nagarjuna sagar View-03.jpg", "img/projects/residential/vid1.mp4"], 
                       "Residential", "Nagarjuna", "01 March 2023", "--");
           break;
         case "padmavathi":
-          setProInfo(["img/residential/pad-19-9-23.jpg", "img/residential/MATERIAL.jpg"], 
+          setProInfo(["img/projects/residential/pad-19-9-23.jpg", "img/projects/residential/MATERIAL.jpg"], 
                     "Residential", "Padmavathi", "01 Febraury 2024", "--");
           break;
         case "raju":
-          setProInfo(["img/residential/Raju View-01.jpg"], 
+          setProInfo(["img/projects/residential/Raju View-01.jpg"], 
           "Residential", "Nagarjuna", "01 March 2023", "--");
           break;
         case "anil":
-          setProInfo(["img/commercial/medical shop 1.jpg", "img/commercial/medical shop- interior_4 - Photo.jpg", "img/commercial/medical shop- interior_5 - Photo.jpg"], 
+          setProInfo(["img/projects/commercial/medical shop 1.jpg", "img/projects/commercial/medical shop- interior_4 - Photo.jpg", "img/projects/commercial/medical shop- interior_5 - Photo.jpg"], 
           "Commercial", "Anil", "01 May 2023", "--");
           break;
         case "prakruthi":
-          setProInfo(["img/commercial/VIEW 2.jpg", "img/commercial/VIEW-2.jpg"], 
+          setProInfo(["img/projects/commercial/VIEW 2.jpg", "img/projects/commercial/VIEW-2.jpg"], 
           "Commercial", "Prakruthi Millets Shop", "01 November 2023", "--");
           break;
         default:
@@ -253,13 +250,26 @@
     function setProInfo(images, category, name, date, website) {
       var slides = "";
       for (let i = 0; i < images.length; i++) {
-        slides += `<div class="swiper-slide">
-          <img src="`+images[i]+`" alt="">
-        </div>`
+        var vid = `data-gall="portfolioGallery" class="portfolio-lightbox venobox" title="" href="`+images[i]+`"`;
+        var img = `<img src="`+images[i]+`" class="img-fluid" alt="">`;
+        if (images[i].split('.')[1] == "mp4") {
+          vid = `class="portfolio-lightbox venobox" data-gall="portfolioGallery" data-autoplay="true" data-vbtype="video" data-ratio="1x1" data-maxwidth="400px" href="`+images[1]+`"`
+          img = `<video src="`+images[i]+`" class="img-fluid" alt=""></video>`;
+        }
+        slides += `<div class="col-lg-4 col-md-6 portfolio-item">
+            <div class="portfolio-wrap">
+              `+img+`
+              <div class="portfolio-info">
+                <div class="portfolio-links">
+                  <a `+vid+` >View</a>
+                </div>
+              </div>
+            </div>
+          </div>`
       }
 
       //Set slides
-      $('#slide-images').html(slides);
+      $('#port-items').html(slides);
 
       var info = `<li><strong>Category</strong>: `+category+`</li>
                 <li><strong>Client</strong>: `+name+`</li>
